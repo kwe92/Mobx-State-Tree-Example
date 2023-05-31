@@ -15,38 +15,21 @@ const store = CountStore.create({});
 store.addCount(initCount);
 
 const Counter = observer((props: {}) => {
-  const [count, setCount] = useState(0);
-
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-  const handleDecrement = () => {
-    setCount((prevCount) => {
-      if (prevCount === 0) return 0;
-      else return prevCount - 1;
-    });
-  };
-
   console.log("Store", store.count[0].count);
 
+  const increment = () => {
+    store.count[0].increment();
+  };
+
+  const decrement = () => {
+    store.count[0].decrement();
+  };
   return (
     <MainContainer>
       <CounterCard>
         <Count>{store.count[0].count}</Count>
-        <StyledButton
-          onClick={() => {
-            store.count[0].increment();
-          }}
-        >
-          Increment
-        </StyledButton>
-        <StyledButton
-          onClick={() => {
-            store.count[0].decrement();
-          }}
-        >
-          Decrement
-        </StyledButton>
+        <StyledButton onClick={increment}>Increment</StyledButton>
+        <StyledButton onClick={decrement}>Decrement</StyledButton>
       </CounterCard>
     </MainContainer>
   );
