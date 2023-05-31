@@ -9,25 +9,28 @@ import {
 import CountStore from "../../models/count/CountModel";
 import { observer } from "mobx-react-lite";
 
-const initCount: Count = { id: 1001, count: 0 };
+// const initCount: Count = { id: 1001, count: 0 };
 
 const store = CountStore.create({});
-store.addCount(initCount);
+store.initalCount();
 
 const Counter = observer((props: {}) => {
-  console.log("Store", store.count[0].count);
+  console.log("Store", store.counts[0].count);
+
+  const count = store.currentCount();
 
   const increment = () => {
-    store.count[0].increment();
+    store.counts[0].increment();
   };
 
   const decrement = () => {
-    store.count[0].decrement();
+    store.counts[0].decrement();
   };
+
   return (
     <MainContainer>
       <CounterCard>
-        <Count>{store.count[0].count}</Count>
+        <Count>{count}</Count>
         <StyledButton onClick={increment}>Increment</StyledButton>
         <StyledButton onClick={decrement}>Decrement</StyledButton>
       </CounterCard>

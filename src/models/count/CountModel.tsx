@@ -2,7 +2,6 @@ import { types } from "mobx-state-tree";
 
 const CountModel = types
   .model({
-    id: types.identifierNumber,
     count: types.number,
   })
   .actions((self) => ({
@@ -20,12 +19,14 @@ const CountModel = types
 
 const CountStore = types
   .model({
-    count: types.array(CountModel),
+    counts: types.array(CountModel),
   })
   .actions((self) => ({
-    addCount(countObj: Count) {
-      self.count.pop();
-      self.count.push(countObj);
+    initalCount() {
+      self.counts.push(CountModel.create({ count: 0 }));
+    },
+    currentCount() {
+      return self.counts.at(-1)!.count;
     },
   }));
 
